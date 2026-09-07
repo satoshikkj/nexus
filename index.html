@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
 
@@ -13,22 +14,38 @@
         content="NEXUS — Sistema inteligente de gestão para pequenos negócios."
     >
 
-    <meta name="theme-color" content="#08090d">
+    <meta
+        name="theme-color"
+        content="#08090d"
+    >
 
     <title>NEXUS — Smart Business System</title>
 
-    <!-- Fonte -->
+    <!-- =========================
+         FONTE
+    ========================== -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
         rel="stylesheet"
     >
 
-    <!-- CSS -->
+    <!-- =========================
+         CSS
+    ========================== -->
+
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 
 <body>
 
@@ -37,9 +54,13 @@
     ========================== -->
 
     <div class="background">
+
         <div class="glow glow-one"></div>
+
         <div class="glow glow-two"></div>
+
         <div class="grid"></div>
+
     </div>
 
 
@@ -49,7 +70,10 @@
 
     <main class="app">
 
-        <!-- Logo -->
+
+        <!-- =========================
+             LOGO
+        ========================== -->
 
         <header class="logo-area">
 
@@ -58,50 +82,73 @@
             </div>
 
             <div class="logo-text">
+
                 <h1>NEXUS</h1>
-                <span>SMART BUSINESS SYSTEM</span>
+
+                <span>
+                    SMART BUSINESS SYSTEM
+                </span>
+
             </div>
 
         </header>
 
 
-        <!-- =========================
+        <!-- =====================================================
              LOGIN
-        ========================== -->
+        ====================================================== -->
 
-        <section class="login-container">
+        <section
+            class="login-container"
+            id="loginScreen"
+        >
+
+            <!-- Cabeçalho -->
 
             <div class="login-header">
 
                 <span class="status">
+
                     <span class="status-dot"></span>
+
                     SYSTEM ONLINE
+
                 </span>
 
+
                 <h2>
+
                     Bem-vindo ao
-                    <strong>NEXUS</strong>
+
+                    <strong>
+                        NEXUS
+                    </strong>
+
                 </h2>
 
+
                 <p>
+
                     Gerencie seu negócio de forma
                     simples, inteligente e centralizada.
+
                 </p>
 
             </div>
 
 
-            <!-- Formulário -->
+            <!-- Formulário de Login -->
 
             <form id="loginForm">
 
-                <!-- Email -->
+                <!-- E-mail -->
 
                 <div class="input-group">
 
-                    <label for="email">
+                    <label for="loginEmail">
                         E-mail
                     </label>
+
 
                     <div class="input-wrapper">
 
@@ -109,9 +156,10 @@
                             @
                         </span>
 
+
                         <input
                             type="email"
-                            id="email"
+                            id="loginEmail"
                             name="email"
                             placeholder="seu@email.com"
                             autocomplete="email"
@@ -129,15 +177,20 @@
 
                     <div class="label-row">
 
-                        <label for="password">
+                        <label for="loginPassword">
                             Senha
                         </label>
 
-                        <a href="#" id="forgotPassword">
+
+                        <a
+                            href="#"
+                            id="forgotPassword"
+                        >
                             Esqueceu a senha?
                         </a>
 
                     </div>
+
 
                     <div class="input-wrapper">
 
@@ -145,19 +198,21 @@
                             *
                         </span>
 
+
                         <input
                             type="password"
-                            id="password"
+                            id="loginPassword"
                             name="password"
                             placeholder="Digite sua senha"
                             autocomplete="current-password"
                             required
                         >
 
+
                         <button
                             type="button"
                             class="password-toggle"
-                            id="togglePassword"
+                            id="toggleLoginPassword"
                             aria-label="Mostrar senha"
                         >
                             ◉
@@ -211,7 +266,7 @@
 
                 <div
                     class="form-message"
-                    id="formMessage"
+                    id="loginMessage"
                     aria-live="polite"
                 ></div>
 
@@ -226,8 +281,305 @@
                     Ainda não possui uma conta?
                 </span>
 
-                <a href="#" id="registerLink">
+
+                <a
+                    href="#"
+                    id="registerLink"
+                >
                     Criar conta
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             CADASTRO
+        ====================================================== -->
+
+        <section
+            class="login-container register-container"
+            id="registerScreen"
+            hidden
+        >
+
+            <!-- Cabeçalho -->
+
+            <div class="login-header">
+
+                <span class="status">
+
+                    <span class="status-dot"></span>
+
+                    NEW ACCOUNT
+
+                </span>
+
+
+                <h2>
+
+                    Crie sua conta
+
+                    <strong>
+                        NEXUS
+                    </strong>
+
+                </h2>
+
+
+                <p>
+
+                    Comece a organizar seu negócio
+                    em um único lugar.
+
+                </p>
+
+            </div>
+
+
+            <!-- Formulário de Cadastro -->
+
+            <form id="registerForm">
+
+                <!-- Nome -->
+
+                <div class="input-group">
+
+                    <label for="registerName">
+                        Nome completo
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            ◉
+                        </span>
+
+
+                        <input
+                            type="text"
+                            id="registerName"
+                            name="name"
+                            placeholder="Seu nome"
+                            autocomplete="name"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Empresa -->
+
+                <div class="input-group">
+
+                    <label for="companyName">
+                        Nome da empresa
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            ◆
+                        </span>
+
+
+                        <input
+                            type="text"
+                            id="companyName"
+                            name="company"
+                            placeholder="Nome do seu negócio"
+                            autocomplete="organization"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- E-mail -->
+
+                <div class="input-group">
+
+                    <label for="registerEmail">
+                        E-mail
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            @
+                        </span>
+
+
+                        <input
+                            type="email"
+                            id="registerEmail"
+                            name="email"
+                            placeholder="seu@email.com"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Senha -->
+
+                <div class="input-group">
+
+                    <label for="registerPassword">
+                        Senha
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            *
+                        </span>
+
+
+                        <input
+                            type="password"
+                            id="registerPassword"
+                            name="password"
+                            placeholder="Crie uma senha"
+                            autocomplete="new-password"
+                            required
+                        >
+
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            id="toggleRegisterPassword"
+                            aria-label="Mostrar senha"
+                        >
+                            ◉
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Confirmar senha -->
+
+                <div class="input-group">
+
+                    <label for="confirmPassword">
+                        Confirmar senha
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            *
+                        </span>
+
+
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            placeholder="Digite a senha novamente"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Termos -->
+
+                <div class="terms">
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            id="terms"
+                            required
+                        >
+
+
+                        <span>
+
+                            Eu concordo com os
+                            
+                            <a
+                                href="#"
+                                id="termsLink"
+                            >
+                                termos de uso
+                            </a>
+
+                            do NEXUS.
+
+                        </span>
+
+                    </label>
+
+                </div>
+
+
+                <!-- Botão -->
+
+                <button
+                    type="submit"
+                    class="login-button"
+                    id="registerButton"
+                >
+
+                    <span>
+                        Criar minha conta
+                    </span>
+
+
+                    <span class="button-arrow">
+                        →
+                    </span>
+
+                </button>
+
+
+                <!-- Mensagem -->
+
+                <div
+                    class="form-message"
+                    id="registerMessage"
+                    aria-live="polite"
+                ></div>
+
+            </form>
+
+
+            <!-- Voltar para Login -->
+
+            <div class="register">
+
+                <span>
+                    Já possui uma conta?
+                </span>
+
+
+                <a
+                    href="#"
+                    id="backToLogin"
+                >
+                    Entrar
                 </a>
 
             </div>
@@ -239,7 +591,12 @@
              FEATURES
         ========================== -->
 
-        <section class="features">
+        <section
+            class="features"
+            id="features"
+        >
+
+            <!-- Feature 1 -->
 
             <div class="feature">
 
@@ -247,7 +604,9 @@
                     ◈
                 </div>
 
+
                 <div>
+
                     <strong>
                         Gestão inteligente
                     </strong>
@@ -255,10 +614,13 @@
                     <span>
                         Tudo em um só lugar
                     </span>
+
                 </div>
 
             </div>
 
+
+            <!-- Feature 2 -->
 
             <div class="feature">
 
@@ -266,7 +628,9 @@
                     ◉
                 </div>
 
+
                 <div>
+
                     <strong>
                         Dados protegidos
                     </strong>
@@ -274,10 +638,13 @@
                     <span>
                         Segurança em primeiro lugar
                     </span>
+
                 </div>
 
             </div>
 
+
+            <!-- Feature 3 -->
 
             <div class="feature">
 
@@ -285,7 +652,9 @@
                     ↗
                 </div>
 
+
                 <div>
+
                     <strong>
                         Cresça mais
                     </strong>
@@ -293,6 +662,7 @@
                     <span>
                         Decisões baseadas em dados
                     </span>
+
                 </div>
 
             </div>
@@ -310,9 +680,11 @@
                 © <span id="year"></span> NEXUS
             </span>
 
+
             <span class="separator">
                 •
             </span>
+
 
             <span>
                 SMART BUSINESS SYSTEM
@@ -320,12 +692,16 @@
 
         </footer>
 
+
     </main>
 
 
-    <!-- JavaScript -->
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
 
     <script src="script.js"></script>
 
 </body>
-  </html>
+
+</html>
