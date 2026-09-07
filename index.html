@@ -1,1 +1,331 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
 
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="NEXUS — Sistema inteligente de gestão para pequenos negócios."
+    >
+
+    <meta name="theme-color" content="#08090d">
+
+    <title>NEXUS — Smart Business System</title>
+
+    <!-- Fonte -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =========================
+         BACKGROUND
+    ========================== -->
+
+    <div class="background">
+        <div class="glow glow-one"></div>
+        <div class="glow glow-two"></div>
+        <div class="grid"></div>
+    </div>
+
+
+    <!-- =========================
+         APP
+    ========================== -->
+
+    <main class="app">
+
+        <!-- Logo -->
+
+        <header class="logo-area">
+
+            <div class="logo-icon">
+                N
+            </div>
+
+            <div class="logo-text">
+                <h1>NEXUS</h1>
+                <span>SMART BUSINESS SYSTEM</span>
+            </div>
+
+        </header>
+
+
+        <!-- =========================
+             LOGIN
+        ========================== -->
+
+        <section class="login-container">
+
+            <div class="login-header">
+
+                <span class="status">
+                    <span class="status-dot"></span>
+                    SYSTEM ONLINE
+                </span>
+
+                <h2>
+                    Bem-vindo ao
+                    <strong>NEXUS</strong>
+                </h2>
+
+                <p>
+                    Gerencie seu negócio de forma
+                    simples, inteligente e centralizada.
+                </p>
+
+            </div>
+
+
+            <!-- Formulário -->
+
+            <form id="loginForm">
+
+                <!-- Email -->
+
+                <div class="input-group">
+
+                    <label for="email">
+                        E-mail
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            @
+                        </span>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="seu@email.com"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Senha -->
+
+                <div class="input-group">
+
+                    <div class="label-row">
+
+                        <label for="password">
+                            Senha
+                        </label>
+
+                        <a href="#" id="forgotPassword">
+                            Esqueceu a senha?
+                        </a>
+
+                    </div>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            *
+                        </span>
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Digite sua senha"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            id="togglePassword"
+                            aria-label="Mostrar senha"
+                        >
+                            ◉
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Lembrar -->
+
+                <div class="remember">
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            id="remember"
+                        >
+
+                        <span>
+                            Lembrar de mim
+                        </span>
+
+                    </label>
+
+                </div>
+
+
+                <!-- Botão -->
+
+                <button
+                    type="submit"
+                    class="login-button"
+                    id="loginButton"
+                >
+
+                    <span>
+                        Entrar no NEXUS
+                    </span>
+
+                    <span class="button-arrow">
+                        →
+                    </span>
+
+                </button>
+
+
+                <!-- Mensagem -->
+
+                <div
+                    class="form-message"
+                    id="formMessage"
+                    aria-live="polite"
+                ></div>
+
+            </form>
+
+
+            <!-- Cadastro -->
+
+            <div class="register">
+
+                <span>
+                    Ainda não possui uma conta?
+                </span>
+
+                <a href="#" id="registerLink">
+                    Criar conta
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             FEATURES
+        ========================== -->
+
+        <section class="features">
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    ◈
+                </div>
+
+                <div>
+                    <strong>
+                        Gestão inteligente
+                    </strong>
+
+                    <span>
+                        Tudo em um só lugar
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    ◉
+                </div>
+
+                <div>
+                    <strong>
+                        Dados protegidos
+                    </strong>
+
+                    <span>
+                        Segurança em primeiro lugar
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    ↗
+                </div>
+
+                <div>
+                    <strong>
+                        Cresça mais
+                    </strong>
+
+                    <span>
+                        Decisões baseadas em dados
+                    </span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             FOOTER
+        ========================== -->
+
+        <footer>
+
+            <span>
+                © <span id="year"></span> NEXUS
+            </span>
+
+            <span class="separator">
+                •
+            </span>
+
+            <span>
+                SMART BUSINESS SYSTEM
+            </span>
+
+        </footer>
+
+    </main>
+
+
+    <!-- JavaScript -->
+
+    <script src="script.js"></script>
+
+</body>
+  </html>
