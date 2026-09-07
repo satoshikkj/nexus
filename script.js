@@ -1,26 +1,26 @@
 /* =========================================================
    NEXUS — SMART BUSINESS SYSTEM
-   Frontend Logic
+   Application Logic
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* =========================
-       ELEMENTOS
-    ========================== */
+    /* =====================================================
+       ELEMENTOS — LOGIN
+    ===================================================== */
+
+    const loginScreen = document.getElementById("loginScreen");
+    const registerScreen = document.getElementById("registerScreen");
 
     const loginForm = document.getElementById("loginForm");
-    const emailInput = document.getElementById("email");
-    const passwordInput = document.getElementById("password");
+    const loginEmail = document.getElementById("loginEmail");
+    const loginPassword = document.getElementById("loginPassword");
 
-    const togglePassword =
-        document.getElementById("togglePassword");
+    const loginButton = document.getElementById("loginButton");
+    const loginMessage = document.getElementById("loginMessage");
 
-    const loginButton =
-        document.getElementById("loginButton");
-
-    const formMessage =
-        document.getElementById("formMessage");
+    const toggleLoginPassword =
+        document.getElementById("toggleLoginPassword");
 
     const forgotPassword =
         document.getElementById("forgotPassword");
@@ -28,13 +28,54 @@ document.addEventListener("DOMContentLoaded", () => {
     const registerLink =
         document.getElementById("registerLink");
 
+
+    /* =====================================================
+       ELEMENTOS — CADASTRO
+    ===================================================== */
+
+    const registerForm =
+        document.getElementById("registerForm");
+
+    const registerName =
+        document.getElementById("registerName");
+
+    const companyName =
+        document.getElementById("companyName");
+
+    const registerEmail =
+        document.getElementById("registerEmail");
+
+    const registerPassword =
+        document.getElementById("registerPassword");
+
+    const confirmPassword =
+        document.getElementById("confirmPassword");
+
+    const terms =
+        document.getElementById("terms");
+
+    const registerButton =
+        document.getElementById("registerButton");
+
+    const registerMessage =
+        document.getElementById("registerMessage");
+
+    const toggleRegisterPassword =
+        document.getElementById("toggleRegisterPassword");
+
+    const backToLogin =
+        document.getElementById("backToLogin");
+
+    const termsLink =
+        document.getElementById("termsLink");
+
+
+    /* =====================================================
+       FOOTER
+    ===================================================== */
+
     const yearElement =
         document.getElementById("year");
-
-
-    /* =========================
-       ANO
-    ========================== */
 
     if (yearElement) {
         yearElement.textContent =
@@ -42,248 +83,582 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =========================
-       MENSAGENS
-    ========================== */
+    /* =====================================================
+       FUNÇÕES DE MENSAGEM
+    ===================================================== */
 
-    function clearMessage() {
+    function showLoginMessage(message, type = "error") {
 
-        if (!formMessage) return;
+        if (!loginMessage) return;
 
-        formMessage.textContent = "";
-        formMessage.className = "form-message";
+        loginMessage.textContent = message;
 
-    }
-
-
-    function showMessage(message, type = "error") {
-
-        if (!formMessage) return;
-
-        formMessage.textContent = message;
-
-        formMessage.className =
+        loginMessage.className =
             `form-message ${type}`;
 
     }
 
 
-    /* =========================
-       EMAIL
-    ========================== */
+    function clearLoginMessage() {
+
+        if (!loginMessage) return;
+
+        loginMessage.textContent = "";
+
+        loginMessage.className =
+            "form-message";
+
+    }
+
+
+    function showRegisterMessage(message, type = "error") {
+
+        if (!registerMessage) return;
+
+        registerMessage.textContent = message;
+
+        registerMessage.className =
+            `form-message ${type}`;
+
+    }
+
+
+    function clearRegisterMessage() {
+
+        if (!registerMessage) return;
+
+        registerMessage.textContent = "";
+
+        registerMessage.className =
+            "form-message";
+
+    }
+
+
+    /* =====================================================
+       VALIDAÇÃO DE E-MAIL
+    ===================================================== */
 
     function isValidEmail(email) {
-
-        /*
-         * Exemplo válido:
-         *
-         * usuario@gmail.com
-         * usuario@hotmail.com
-         * contato@empresa.com.br
-         *
-         * Exemplo inválido:
-         *
-         * kak@191727
-         * teste@
-         * teste.com
-         */
 
         return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
 
     }
 
 
-    /* =========================
-       MOSTRAR / OCULTAR SENHA
-    ========================== */
+    /* =====================================================
+       TROCAR PARA CADASTRO
+    ===================================================== */
 
-    if (togglePassword && passwordInput) {
+    function showRegisterScreen() {
 
-        togglePassword.addEventListener("click", () => {
+        clearLoginMessage();
+        clearRegisterMessage();
 
-            const showingPassword =
-                passwordInput.type === "text";
+        if (loginScreen) {
+            loginScreen.hidden = true;
+        }
 
-            if (showingPassword) {
+        if (registerScreen) {
+            registerScreen.hidden = false;
+        }
 
-                passwordInput.type = "password";
+        if (registerName) {
+            setTimeout(() => {
+                registerName.focus();
+            }, 100);
+        }
 
-                togglePassword.textContent = "◉";
-
-                togglePassword.setAttribute(
-                    "aria-label",
-                    "Mostrar senha"
-                );
-
-            } else {
-
-                passwordInput.type = "text";
-
-                togglePassword.textContent = "◌";
-
-                togglePassword.setAttribute(
-                    "aria-label",
-                    "Ocultar senha"
-                );
-
-            }
-
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
         });
 
     }
 
 
-    /* =========================
-       LOGIN
-    ========================== */
+    /* =====================================================
+       VOLTAR PARA LOGIN
+    ===================================================== */
 
-    if (loginForm) {
+    function showLoginScreen() {
 
-        loginForm.addEventListener("submit", (event) => {
+        clearLoginMessage();
+        clearRegisterMessage();
+
+        if (registerScreen) {
+            registerScreen.hidden = true;
+        }
+
+        if (loginScreen) {
+            loginScreen.hidden = false;
+        }
+
+        if (loginEmail) {
+            setTimeout(() => {
+                loginEmail.focus();
+            }, 100);
+        }
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    /* =====================================================
+       BOTÃO — CRIAR CONTA
+    ===================================================== */
+
+    if (registerLink) {
+
+        registerLink.addEventListener("click", (event) => {
 
             event.preventDefault();
 
-            clearMessage();
-
-            const email =
-                emailInput.value.trim();
-
-            const password =
-                passwordInput.value;
-
-
-            /* -------------------------
-               EMAIL VAZIO
-            ------------------------- */
-
-            if (!email) {
-
-                showMessage(
-                    "Digite seu e-mail."
-                );
-
-                emailInput.focus();
-
-                return;
-            }
-
-
-            /* -------------------------
-               EMAIL INVÁLIDO
-            ------------------------- */
-
-            if (!isValidEmail(email)) {
-
-                showMessage(
-                    "Digite um e-mail válido, como usuario@gmail.com."
-                );
-
-                emailInput.focus();
-
-                return;
-            }
-
-
-            /* -------------------------
-               SENHA VAZIA
-            ------------------------- */
-
-            if (!password) {
-
-                showMessage(
-                    "Digite sua senha."
-                );
-
-                passwordInput.focus();
-
-                return;
-            }
-
-
-            /* -------------------------
-               SENHA CURTA
-            ------------------------- */
-
-            if (password.length < 6) {
-
-                showMessage(
-                    "A senha precisa ter pelo menos 6 caracteres."
-                );
-
-                passwordInput.focus();
-
-                return;
-            }
-
-
-            /* -------------------------
-               CARREGANDO
-            ------------------------- */
-
-            const originalContent =
-                loginButton.innerHTML;
-
-            loginButton.disabled = true;
-
-            loginButton.style.opacity = "0.7";
-
-            loginButton.innerHTML = `
-                <span>Verificando...</span>
-                <span class="button-arrow">...</span>
-            `;
-
-
-            /* -------------------------
-               SIMULAÇÃO TEMPORÁRIA
-            ------------------------- */
-
-            setTimeout(() => {
-
-                loginButton.disabled = false;
-
-                loginButton.style.opacity = "1";
-
-                loginButton.innerHTML =
-                    originalContent;
-
-                showMessage(
-                    "Firebase ainda não conectado. O login real será configurado na próxima etapa."
-                );
-
-            }, 1000);
+            showRegisterScreen();
 
         });
 
     }
 
 
-    /* =========================
-       LIMPAR ERRO AO DIGITAR
-    ========================== */
+    /* =====================================================
+       BOTÃO — VOLTAR PARA LOGIN
+    ===================================================== */
 
-    if (emailInput) {
+    if (backToLogin) {
 
-        emailInput.addEventListener(
-            "input",
-            clearMessage
+        backToLogin.addEventListener("click", (event) => {
+
+            event.preventDefault();
+
+            showLoginScreen();
+
+        });
+
+    }
+
+
+    /* =====================================================
+       MOSTRAR / OCULTAR SENHA — LOGIN
+    ===================================================== */
+
+    if (
+        toggleLoginPassword &&
+        loginPassword
+    ) {
+
+        toggleLoginPassword.addEventListener(
+            "click",
+            () => {
+
+                const isHidden =
+                    loginPassword.type === "password";
+
+                loginPassword.type =
+                    isHidden
+                        ? "text"
+                        : "password";
+
+                toggleLoginPassword.textContent =
+                    isHidden
+                        ? "◌"
+                        : "◉";
+
+                toggleLoginPassword.setAttribute(
+                    "aria-label",
+                    isHidden
+                        ? "Ocultar senha"
+                        : "Mostrar senha"
+                );
+
+            }
         );
 
     }
 
 
-    if (passwordInput) {
+    /* =====================================================
+       MOSTRAR / OCULTAR SENHA — CADASTRO
+    ===================================================== */
 
-        passwordInput.addEventListener(
-            "input",
-            clearMessage
+    if (
+        toggleRegisterPassword &&
+        registerPassword
+    ) {
+
+        toggleRegisterPassword.addEventListener(
+            "click",
+            () => {
+
+                const isHidden =
+                    registerPassword.type === "password";
+
+                registerPassword.type =
+                    isHidden
+                        ? "text"
+                        : "password";
+
+                toggleRegisterPassword.textContent =
+                    isHidden
+                        ? "◌"
+                        : "◉";
+
+                toggleRegisterPassword.setAttribute(
+                    "aria-label",
+                    isHidden
+                        ? "Ocultar senha"
+                        : "Mostrar senha"
+                );
+
+            }
         );
 
     }
 
 
-    /* =========================
+    /* =====================================================
+       LOGIN
+    ===================================================== */
+
+    if (loginForm) {
+
+        loginForm.addEventListener(
+            "submit",
+            (event) => {
+
+                event.preventDefault();
+
+                clearLoginMessage();
+
+                const email =
+                    loginEmail.value.trim();
+
+                const password =
+                    loginPassword.value;
+
+
+                /* -------------------------
+                   E-MAIL
+                ------------------------- */
+
+                if (!email) {
+
+                    showLoginMessage(
+                        "Digite seu e-mail."
+                    );
+
+                    loginEmail.focus();
+
+                    return;
+                }
+
+
+                if (!isValidEmail(email)) {
+
+                    showLoginMessage(
+                        "Digite um e-mail válido."
+                    );
+
+                    loginEmail.focus();
+
+                    return;
+                }
+
+
+                /* -------------------------
+                   SENHA
+                ------------------------- */
+
+                if (!password) {
+
+                    showLoginMessage(
+                        "Digite sua senha."
+                    );
+
+                    loginPassword.focus();
+
+                    return;
+                }
+
+
+                if (password.length < 6) {
+
+                    showLoginMessage(
+                        "A senha precisa ter pelo menos 6 caracteres."
+                    );
+
+                    loginPassword.focus();
+
+                    return;
+                }
+
+
+                /* -------------------------
+                   CARREGAMENTO
+                ------------------------- */
+
+                const originalContent =
+                    loginButton.innerHTML;
+
+                loginButton.disabled = true;
+
+                loginButton.style.opacity = "0.7";
+
+                loginButton.innerHTML = `
+                    <span>Verificando...</span>
+                    <span class="button-arrow">...</span>
+                `;
+
+
+                /*
+                 * Firebase Authentication
+                 * será conectado posteriormente.
+                 */
+
+                setTimeout(() => {
+
+                    loginButton.disabled = false;
+
+                    loginButton.style.opacity = "1";
+
+                    loginButton.innerHTML =
+                        originalContent;
+
+                    showLoginMessage(
+                        "Firebase ainda não conectado. O login real será configurado em breve."
+                    );
+
+                }, 1000);
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       CADASTRO
+    ===================================================== */
+
+    if (registerForm) {
+
+        registerForm.addEventListener(
+            "submit",
+            (event) => {
+
+                event.preventDefault();
+
+                clearRegisterMessage();
+
+                const name =
+                    registerName.value.trim();
+
+                const company =
+                    companyName.value.trim();
+
+                const email =
+                    registerEmail.value.trim();
+
+                const password =
+                    registerPassword.value;
+
+                const confirmation =
+                    confirmPassword.value;
+
+
+                /* -------------------------
+                   NOME
+                ------------------------- */
+
+                if (!name) {
+
+                    showRegisterMessage(
+                        "Digite seu nome completo."
+                    );
+
+                    registerName.focus();
+
+                    return;
+                }
+
+
+                if (name.length < 3) {
+
+                    showRegisterMessage(
+                        "Digite um nome válido."
+                    );
+
+                    registerName.focus();
+
+                    return;
+                }
+
+
+                /* -------------------------
+                   EMPRESA
+                ------------------------- */
+
+                if (!company) {
+
+                    showRegisterMessage(
+                        "Digite o nome da sua empresa."
+                    );
+
+                    companyName.focus();
+
+                    return;
+                }
+
+
+                /* -------------------------
+                   E-MAIL
+                ------------------------- */
+
+                if (!email) {
+
+                    showRegisterMessage(
+                        "Digite seu e-mail."
+                    );
+
+                    registerEmail.focus();
+
+                    return;
+                }
+
+
+                if (!isValidEmail(email)) {
+
+                    showRegisterMessage(
+                        "Digite um e-mail válido."
+                    );
+
+                    registerEmail.focus();
+
+                    return;
+                }
+
+
+                /* -------------------------
+                   SENHA
+                ------------------------- */
+
+                if (!password) {
+
+                    showRegisterMessage(
+                        "Crie uma senha."
+                    );
+
+                    registerPassword.focus();
+
+                    return;
+                }
+
+
+                if (password.length < 6) {
+
+                    showRegisterMessage(
+                        "A senha precisa ter pelo menos 6 caracteres."
+                    );
+
+                    registerPassword.focus();
+
+                    return;
+                }
+
+
+                /* -------------------------
+                   CONFIRMAÇÃO
+                ------------------------- */
+
+                if (!confirmation) {
+
+                    showRegisterMessage(
+                        "Confirme sua senha."
+                    );
+
+                    confirmPassword.focus();
+
+                    return;
+                }
+
+
+                if (password !== confirmation) {
+
+                    showRegisterMessage(
+                        "As senhas não coincidem."
+                    );
+
+                    confirmPassword.focus();
+
+                    return;
+                }
+
+
+                /* -------------------------
+                   TERMOS
+                ------------------------- */
+
+                if (!terms.checked) {
+
+                    showRegisterMessage(
+                        "Você precisa aceitar os termos de uso."
+                    );
+
+                    return;
+                }
+
+
+                /* -------------------------
+                   CARREGAMENTO
+                ------------------------- */
+
+                const originalContent =
+                    registerButton.innerHTML;
+
+                registerButton.disabled = true;
+
+                registerButton.style.opacity = "0.7";
+
+                registerButton.innerHTML = `
+                    <span>Criando conta...</span>
+                    <span class="button-arrow">...</span>
+                `;
+
+
+                /*
+                 * Firebase Authentication
+                 * será conectado posteriormente.
+                 */
+
+                setTimeout(() => {
+
+                    registerButton.disabled = false;
+
+                    registerButton.style.opacity = "1";
+
+                    registerButton.innerHTML =
+                        originalContent;
+
+                    showRegisterMessage(
+                        "Formulário validado. O Firebase será conectado na próxima etapa.",
+                        "success"
+                    );
+
+                }, 1000);
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
        ESQUECI A SENHA
-    ========================== */
+    ===================================================== */
 
     if (forgotPassword) {
 
@@ -293,7 +668,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 event.preventDefault();
 
-                showMessage(
+                showLoginMessage(
                     "A recuperação de senha será ativada com o Firebase."
                 );
 
@@ -303,32 +678,73 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =========================
-       CRIAR CONTA
-    ========================== */
+    /* =====================================================
+       TERMOS DE USO
+    ===================================================== */
 
-    if (registerLink) {
+    if (termsLink) {
 
-        registerLink.addEventListener(
+        termsLink.addEventListener(
             "click",
             (event) => {
 
                 event.preventDefault();
 
-                showMessage(
-                    "A tela de cadastro será criada na próxima etapa."
+                showRegisterMessage(
+                    "Os termos de uso serão adicionados posteriormente.",
+                    "success"
                 );
 
             }
-
         );
 
     }
 
 
-    /* =========================
-       CONSOLE
-    ========================== */
+    /* =====================================================
+       LIMPAR MENSAGENS AO DIGITAR
+    ===================================================== */
+
+    const loginInputs = [
+        loginEmail,
+        loginPassword
+    ];
+
+    loginInputs.forEach((input) => {
+
+        if (!input) return;
+
+        input.addEventListener(
+            "input",
+            clearLoginMessage
+        );
+
+    });
+
+
+    const registerInputs = [
+        registerName,
+        companyName,
+        registerEmail,
+        registerPassword,
+        confirmPassword
+    ];
+
+    registerInputs.forEach((input) => {
+
+        if (!input) return;
+
+        input.addEventListener(
+            "input",
+            clearRegisterMessage
+        );
+
+    });
+
+
+    /* =====================================================
+       INICIALIZAÇÃO
+    ===================================================== */
 
     console.log(
         "%c NEXUS ",
@@ -336,7 +752,11 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     console.log(
-        "NEXUS iniciado com sucesso."
+        "Smart Business System iniciado."
+    );
+
+    console.log(
+        "Authentication: aguardando Firebase."
     );
 
 });
