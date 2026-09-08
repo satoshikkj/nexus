@@ -539,10 +539,8 @@ quickActions.forEach(
 
                 if (action === "new-product") {
 
-                    alert(
-                        "Módulo de produtos será implementado em breve."
-                    );
-                }
+    window.location.href = "produtos.html";
+}
 
 
                 if (action === "new-client") {
