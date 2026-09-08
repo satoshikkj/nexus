@@ -619,14 +619,8 @@ quickActions.forEach(
                 );
 
 
-                // Os módulos serão
-                // implementados depois.
-
                 if (action === "new-order") {
-
-                    alert(
-                        "Módulo de pedidos será implementado em breve."
-                    );
+    window.location.href = "pedidos.html";
                 }
 
 
