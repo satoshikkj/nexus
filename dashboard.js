@@ -19,9 +19,10 @@ import {
 
 import {
     doc,
-    getDoc
+    getDoc,
+    collection,
+    getDocs
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
-
 
 // =========================================
 // FIREBASE CONFIG
