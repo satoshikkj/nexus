@@ -661,63 +661,249 @@ function closeModal() {
 }
 
 // =========================================
-// BAIXAR ESTOQUE
+// ATUALIZAR ESTOQUE DO PEDIDO
 // =========================================
 
-async function decreaseStock(orderItems) {
+async function updateStockForOrderChange(orderIdValue, newStatus, newItems) {
 
     await runTransaction(db, async (transaction) => {
 
-        for (const item of orderItems) {
+        const orderRef = doc(
+            db,
+            "empresas",
+            currentEmpresaId,
+            "pedidos",
+            orderIdValue
+        );
+
+        const oldOrderSnapshot =
+            await transaction.get(orderRef);
+
+        if (!oldOrderSnapshot.exists()) {
+            throw new Error("Pedido não encontrado.");
+        }
+
+        const oldOrder =
+            oldOrderSnapshot.data();
+
+        const oldStatus =
+            oldOrder.status || "pendente";
+
+        const oldItems =
+            Array.isArray(oldOrder.itens)
+                ? oldOrder.itens
+                : [];
+
+
+        // =====================================
+        // QUANTIDADES ANTIGAS
+        // =====================================
+
+        const oldQuantities = {};
+
+        oldItems.forEach(item => {
+
+            const productId =
+                item.produtoId;
+
+            const quantity =
+                Number(item.quantidade) || 0;
+
+            oldQuantities[productId] =
+                (oldQuantities[productId] || 0) +
+                quantity;
+        });
+
+
+        // =====================================
+        // QUANTIDADES NOVAS
+        // =====================================
+
+        const newQuantities = {};
+
+        newItems.forEach(item => {
+
+            const productId =
+                item.produtoId;
+
+            const quantity =
+                Number(item.quantidade) || 0;
+
+            newQuantities[productId] =
+                (newQuantities[productId] || 0) +
+                quantity;
+        });
+
+
+        const productIds = new Set([
+            ...Object.keys(oldQuantities),
+            ...Object.keys(newQuantities)
+        ]);
+
+
+        // =====================================
+        // PEDIDO NOVO
+        // =====================================
+
+        if (!orderIdValue) {
+            return;
+        }
+
+
+        // =====================================
+        // CALCULAR ALTERAÇÕES
+        // =====================================
+
+        const changes = [];
+
+
+        productIds.forEach(productId => {
+
+            const oldQuantity =
+                oldQuantities[productId] || 0;
+
+            const newQuantity =
+                newQuantities[productId] || 0;
+
+
+            let difference = 0;
+
+
+            // Pedido antigo não consumia estoque
+            // e novo pedido passou a consumir
+            if (
+                oldStatus !== "concluido" &&
+                newStatus === "concluido"
+            ) {
+
+                difference =
+                    newQuantity;
+
+            }
+
+
+            // Pedido antigo consumia estoque
+            // e deixou de ser concluído
+            else if (
+                oldStatus === "concluido" &&
+                newStatus !== "concluido"
+            ) {
+
+                difference =
+                    -oldQuantity;
+
+            }
+
+
+            // Continua concluído
+            // Ajustar apenas a diferença
+            else if (
+                oldStatus === "concluido" &&
+                newStatus === "concluido"
+            ) {
+
+                difference =
+                    newQuantity - oldQuantity;
+
+            }
+
+
+            if (difference !== 0) {
+
+                changes.push({
+                    productId,
+                    difference
+                });
+
+            }
+
+        });
+
+
+        if (changes.length === 0) {
+            return;
+        }
+
+
+        // =====================================
+        // LER PRODUTOS
+        // =====================================
+
+        const productSnapshots = new Map();
+
+
+        for (const change of changes) {
 
             const productRef = doc(
                 db,
                 "empresas",
                 currentEmpresaId,
                 "produtos",
-                item.produtoId
+                change.productId
             );
 
-            const productSnapshot =
+            const snapshot =
                 await transaction.get(productRef);
 
-            if (!productSnapshot.exists()) {
+            if (!snapshot.exists()) {
 
                 throw new Error(
-                    `Produto "${item.nome}" não foi encontrado.`
+                    "Um dos produtos do pedido não foi encontrado."
                 );
+
             }
 
-            const productData =
-                productSnapshot.data();
-
-            const currentStock =
-                Number(productData.estoque) || 0;
-
-            const quantity =
-                Number(item.quantidade) || 0;
-
-            if (currentStock < quantity) {
-
-                throw new Error(
-                    `Estoque insuficiente para "${item.nome}". Disponível: ${currentStock}.`
-                );
-            }
-
-            transaction.update(
-                productRef,
+            productSnapshots.set(
+                change.productId,
                 {
-                    estoque:
-                        currentStock - quantity,
-
-                    atualizadoEm:
-                        serverTimestamp()
+                    ref: productRef,
+                    data: snapshot.data()
                 }
             );
+
         }
+
+
+        // =====================================
+        // VALIDAR E ATUALIZAR ESTOQUE
+        // =====================================
+
+        for (const change of changes) {
+
+            const product =
+                productSnapshots.get(
+                    change.productId
+                );
+
+            const currentStock =
+                Number(product.data.estoque) || 0;
+
+            const newStock =
+                currentStock - change.difference;
+
+
+            if (newStock < 0) {
+
+                throw new Error(
+                    `Estoque insuficiente para "${product.data.nome || "produto"}". Disponível: ${currentStock}.`
+                );
+
+            }
+
+
+            transaction.update(
+                product.ref,
+                {
+                    estoque: newStock,
+                    atualizadoEm: serverTimestamp()
+                }
+            );
+
+        }
+
     });
 }
-
+                    
 // =========================================
 // SALVAR PEDIDO
 // =========================================
@@ -799,7 +985,12 @@ async function saveOrder(event) {
             clienteNome:
                 client.nome || "Cliente",
 
-            itens: orderItems,
+            itens: orderItems.map(item => ({
+                produtoId: item.produtoId,
+                nome: item.nome,
+                preco: Number(item.preco) || 0,
+                quantidade: Number(item.quantidade) || 0
+            })),
 
             total:
                 calculateOrderTotal(),
@@ -817,7 +1008,7 @@ async function saveOrder(event) {
 
 
         // =====================================
-        // EDITAR
+        // EDITAR PEDIDO
         // =====================================
 
         if (orderId.value) {
@@ -832,9 +1023,307 @@ async function saveOrder(event) {
                 );
 
 
-            await updateDoc(
-                orderRef,
-                data
+            await runTransaction(
+                db,
+                async transaction => {
+
+                    const oldOrderSnapshot =
+                        await transaction.get(
+                            orderRef
+                        );
+
+
+                    if (
+                        !oldOrderSnapshot.exists()
+                    ) {
+
+                        throw new Error(
+                            "Pedido não encontrado."
+                        );
+
+                    }
+
+
+                    const oldOrder =
+                        oldOrderSnapshot.data();
+
+
+                    const oldStatus =
+                        oldOrder.status ||
+                        "pendente";
+
+
+                    const oldItems =
+                        Array.isArray(
+                            oldOrder.itens
+                        )
+                            ? oldOrder.itens
+                            : [];
+
+
+                    // =================================
+                    // QUANTIDADES ANTIGAS
+                    // =================================
+
+                    const oldQuantities = {};
+
+
+                    oldItems.forEach(item => {
+
+                        const productId =
+                            item.produtoId;
+
+
+                        const quantity =
+                            Number(
+                                item.quantidade
+                            ) || 0;
+
+
+                        oldQuantities[productId] =
+                            (
+                                oldQuantities[productId] ||
+                                0
+                            ) + quantity;
+
+                    });
+
+
+                    // =================================
+                    // QUANTIDADES NOVAS
+                    // =================================
+
+                    const newQuantities = {};
+
+
+                    data.itens.forEach(item => {
+
+                        const productId =
+                            item.produtoId;
+
+
+                        const quantity =
+                            Number(
+                                item.quantidade
+                            ) || 0;
+
+
+                        newQuantities[productId] =
+                            (
+                                newQuantities[productId] ||
+                                0
+                            ) + quantity;
+
+                    });
+
+
+                    // =================================
+                    // PRODUTOS ENVOLVIDOS
+                    // =================================
+
+                    const productIds =
+                        new Set([
+                            ...Object.keys(
+                                oldQuantities
+                            ),
+                            ...Object.keys(
+                                newQuantities
+                            )
+                        ]);
+
+
+                    const changes = [];
+
+
+                    productIds.forEach(
+                        productId => {
+
+                            const oldQuantity =
+                                oldQuantities[
+                                    productId
+                                ] || 0;
+
+
+                            const newQuantity =
+                                newQuantities[
+                                    productId
+                                ] || 0;
+
+
+                            let difference = 0;
+
+
+                            // NÃO CONCLUÍDO → CONCLUÍDO
+                            if (
+                                oldStatus !==
+                                    "concluido" &&
+                                data.status ===
+                                    "concluido"
+                            ) {
+
+                                difference =
+                                    newQuantity;
+
+                            }
+
+
+                            // CONCLUÍDO → NÃO CONCLUÍDO
+                            else if (
+                                oldStatus ===
+                                    "concluido" &&
+                                data.status !==
+                                    "concluido"
+                            ) {
+
+                                difference =
+                                    -oldQuantity;
+
+                            }
+
+
+                            // CONCLUÍDO → CONCLUÍDO
+                            else if (
+                                oldStatus ===
+                                    "concluido" &&
+                                data.status ===
+                                    "concluido"
+                            ) {
+
+                                difference =
+                                    newQuantity -
+                                    oldQuantity;
+
+                            }
+
+
+                            if (
+                                difference !== 0
+                            ) {
+
+                                changes.push({
+                                    productId,
+                                    difference
+                                });
+
+                            }
+
+                        }
+                    );
+
+
+                    // =================================
+                    // LER PRODUTOS
+                    // =================================
+
+                    const productSnapshots =
+                        new Map();
+
+
+                    for (
+                        const change
+                        of changes
+                    ) {
+
+                        const productRef =
+                            doc(
+                                db,
+                                "empresas",
+                                currentEmpresaId,
+                                "produtos",
+                                change.productId
+                            );
+
+
+                        const snapshot =
+                            await transaction.get(
+                                productRef
+                            );
+
+
+                        if (
+                            !snapshot.exists()
+                        ) {
+
+                            throw new Error(
+                                "Um dos produtos do pedido não foi encontrado."
+                            );
+
+                        }
+
+
+                        productSnapshots.set(
+                            change.productId,
+                            {
+                                ref: productRef,
+                                data:
+                                    snapshot.data()
+                            }
+                        );
+
+                    }
+
+
+                    // =================================
+                    // ATUALIZAR ESTOQUE
+                    // =================================
+
+                    for (
+                        const change
+                        of changes
+                    ) {
+
+                        const product =
+                            productSnapshots.get(
+                                change.productId
+                            );
+
+
+                        const currentStock =
+                            Number(
+                                product.data.estoque
+                            ) || 0;
+
+
+                        const newStock =
+                            currentStock -
+                            change.difference;
+
+
+                        if (
+                            newStock < 0
+                        ) {
+
+                            throw new Error(
+                                `Estoque insuficiente para "${product.data.nome || "produto"}". Disponível: ${currentStock}.`
+                            );
+
+                        }
+
+
+                        transaction.update(
+                            product.ref,
+                            {
+                                estoque:
+                                    newStock,
+
+                                atualizadoEm:
+                                    serverTimestamp()
+                            }
+                        );
+
+                    }
+
+
+                    // =================================
+                    // ATUALIZAR PEDIDO
+                    // =================================
+
+                    transaction.update(
+                        orderRef,
+                        data
+                    );
+
+                }
             );
 
 
@@ -847,37 +1336,170 @@ async function saveOrder(event) {
 
 
         // =====================================
-        // NOVO
+        // NOVO PEDIDO
         // =====================================
 
         else {
 
-            await addDoc(
+            const newOrderRef =
+                doc(
+                    collection(
+                        db,
+                        "empresas",
+                        currentEmpresaId,
+                        "pedidos"
+                    )
+                );
 
-                collection(
-                    db,
-                    "empresas",
-                    currentEmpresaId,
-                    "pedidos"
-                ),
 
-                {
-                    ...data,
+            await runTransaction(
+                db,
+                async transaction => {
 
-                    criadoEm:
-                        serverTimestamp()
+                    const productSnapshots =
+                        new Map();
+
+
+                    // =================================
+                    // LER PRODUTOS
+                    // =================================
+
+                    for (
+                        const item
+                        of data.itens
+                    ) {
+
+                        const productRef =
+                            doc(
+                                db,
+                                "empresas",
+                                currentEmpresaId,
+                                "produtos",
+                                item.produtoId
+                            );
+
+
+                        const snapshot =
+                            await transaction.get(
+                                productRef
+                            );
+
+
+                        if (
+                            !snapshot.exists()
+                        ) {
+
+                            throw new Error(
+                                `Produto "${item.nome}" não foi encontrado.`
+                            );
+
+                        }
+
+
+                        productSnapshots.set(
+                            item.produtoId,
+                            {
+                                ref: productRef,
+                                data:
+                                    snapshot.data()
+                            }
+                        );
+
+                    }
+
+
+                    // =================================
+                    // BAIXAR ESTOQUE
+                    // =================================
+
+                    if (
+                        data.status ===
+                        "concluido"
+                    ) {
+
+                        for (
+                            const item
+                            of data.itens
+                        ) {
+
+                            const product =
+                                productSnapshots.get(
+                                    item.produtoId
+                                );
+
+
+                            const stock =
+                                Number(
+                                    product.data.estoque
+                                ) || 0;
+
+
+                            const quantity =
+                                Number(
+                                    item.quantidade
+                                ) || 0;
+
+
+                            if (
+                                stock < quantity
+                            ) {
+
+                                throw new Error(
+                                    `Estoque insuficiente para "${item.nome}". Disponível: ${stock}.`
+                                );
+
+                            }
+
+
+                            transaction.update(
+                                product.ref,
+                                {
+                                    estoque:
+                                        stock -
+                                        quantity,
+
+                                    atualizadoEm:
+                                        serverTimestamp()
+                                }
+                            );
+
+                        }
+
+                    }
+
+
+                    // =================================
+                    // CRIAR PEDIDO
+                    // =================================
+
+                    transaction.set(
+                        newOrderRef,
+                        {
+                            ...data,
+
+                            criadoEm:
+                                serverTimestamp()
+                        }
+                    );
+
                 }
-
             );
 
 
             console.log(
                 "Pedido criado."
             );
+
         }
 
 
+        // =====================================
+        // SUCESSO
+        // =====================================
+
         closeModal();
+
+        await loadProducts();
 
         await loadOrders();
 
@@ -891,6 +1513,7 @@ async function saveOrder(event) {
 
 
         orderMessage.textContent =
+            error.message ||
             "Não foi possível salvar o pedido.";
 
         orderMessage.className =
@@ -903,9 +1526,9 @@ async function saveOrder(event) {
 
         saveOrderButton.textContent =
             "Salvar pedido";
-    }
-}
 
+    }
+                }
 
 // =========================================
 // CARREGAR PEDIDOS
