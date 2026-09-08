@@ -637,10 +637,7 @@ quickActions.forEach(
 
 
                 if (action === "new-client") {
-
-                    alert(
-                        "Módulo de clientes será implementado em breve."
-                    );
+    window.location.href = "clientes.html";
                 }
 
 
