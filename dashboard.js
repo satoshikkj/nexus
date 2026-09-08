@@ -112,7 +112,7 @@ function updateCurrentDate() {
 }
 
 // =========================================
-// FUNÇÃO — CONTAR PRODUTOS
+// FUNÇÃO — PRODUTOS E ESTOQUE
 // =========================================
 
 async function loadProductsCount(empresaId) {
@@ -130,8 +130,14 @@ async function loadProductsCount(empresaId) {
         const productsSnapshot =
             await getDocs(productsRef);
 
+
+        // =====================================
+        // QUANTIDADE DE PRODUTOS
+        // =====================================
+
         const productsCount =
             document.getElementById("productsCount");
+
 
         if (productsCount) {
 
@@ -139,15 +145,58 @@ async function loadProductsCount(empresaId) {
                 productsSnapshot.size;
         }
 
+
+        // =====================================
+        // CALCULAR ESTOQUE TOTAL
+        // =====================================
+
+        let totalStock = 0;
+
+
+        productsSnapshot.forEach(
+            (product) => {
+
+                const data =
+                    product.data();
+
+                const estoque =
+                    Number(data.estoque) || 0;
+
+                totalStock += estoque;
+            }
+        );
+
+
+        // =====================================
+        // MOSTRAR ESTOQUE NO DASHBOARD
+        // =====================================
+
+        const totalStockElement =
+            document.getElementById("totalStock");
+
+
+        if (totalStockElement) {
+
+            totalStockElement.textContent =
+                `${totalStock} unidades em estoque`;
+        }
+
+
         console.log(
             "Produtos encontrados:",
             productsSnapshot.size
         );
 
+        console.log(
+            "Estoque total:",
+            totalStock
+        );
+
+
     } catch (error) {
 
         console.error(
-            "Erro ao carregar quantidade de produtos:",
+            "Erro ao carregar produtos e estoque:",
             error
         );
     }
