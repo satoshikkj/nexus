@@ -1,1 +1,668 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
 
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#08090d"
+    >
+
+    <title>Financeiro — NEXUS</title>
+
+    <meta
+        name="description"
+        content="NEXUS — Gestão financeira inteligente para pequenos negócios."
+    >
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="dashboard.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="financeiro.css"
+    >
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- SIDEBAR -->
+        <aside
+            class="sidebar"
+            id="sidebar"
+        >
+
+            <div class="sidebar-top">
+
+                <div class="brand">
+                    <div class="brand-mark">N</div>
+
+                    <div class="brand-text">
+                        <strong>NEXUS</strong>
+                        <span>SMART BUSINESS</span>
+                    </div>
+                </div>
+
+                <nav class="nav">
+
+                    <a
+                        href="dashboard.html"
+                        class="nav-item"
+                    >
+                        <span class="nav-icon">▣</span>
+                        <span>Dashboard</span>
+                    </a>
+
+                    <a
+                        href="pedidos.html"
+                        class="nav-item"
+                    >
+                        <span class="nav-icon">□</span>
+                        <span>Pedidos</span>
+                    </a>
+
+                    <a
+                        href="produtos.html"
+                        class="nav-item"
+                    >
+                        <span class="nav-icon">◇</span>
+                        <span>Produtos</span>
+                    </a>
+
+                    <a
+                        href="clientes.html"
+                        class="nav-item"
+                    >
+                        <span class="nav-icon">♙</span>
+                        <span>Clientes</span>
+                    </a>
+
+                    <a
+                        href="financeiro.html"
+                        class="nav-item active"
+                    >
+                        <span class="nav-icon">◈</span>
+                        <span>Financeiro</span>
+                    </a>
+
+                    <a
+                        href="relatorios.html"
+                        class="nav-item"
+                    >
+                        <span class="nav-icon">▥</span>
+                        <span>Relatórios</span>
+                    </a>
+
+                    <a
+                        href="configuracoes.html"
+                        class="nav-item"
+                    >
+                        <span class="nav-icon">⚙</span>
+                        <span>Configurações</span>
+                    </a>
+
+                </nav>
+
+            </div>
+
+            <div class="sidebar-bottom">
+
+                <div class="system-status">
+                    <span class="status-dot"></span>
+
+                    <span>Sistema online</span>
+                </div>
+
+                <div class="sidebar-user">
+
+                    <div
+                        class="user-avatar"
+                        id="userAvatar"
+                    >
+                        O
+                    </div>
+
+                    <div class="sidebar-user-info">
+
+                        <strong id="sidebarUserName">
+                            Carregando...
+                        </strong>
+
+                        <span id="sidebarUserRole">
+                            Proprietário
+                        </span>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="logout-button"
+                        id="logoutButton"
+                        title="Sair"
+                    >
+                        ↪
+                    </button>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <!-- MAIN -->
+        <main class="main">
+
+            <!-- TOPBAR -->
+            <header class="topbar">
+
+                <button
+                    type="button"
+                    class="mobile-menu"
+                    id="mobileMenu"
+                    aria-label="Abrir menu"
+                >
+                    ☰
+                </button>
+
+                <div class="topbar-left">
+
+                    <span class="topbar-label">
+                        Financeiro
+                    </span>
+
+                </div>
+
+                <div class="topbar-right">
+
+                    <div class="company-info">
+
+                        <span
+                            class="company-name"
+                            id="companyName"
+                        >
+                            Carregando...
+                        </span>
+
+                    </div>
+
+                    <div
+                        class="topbar-avatar"
+                        id="topbarAvatar"
+                    >
+                        O
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- CONTENT -->
+            <section class="content finance-page">
+
+                <div class="page-header">
+
+                    <div>
+                        <span class="page-kicker">
+                            CONTROLE FINANCEIRO
+                        </span>
+
+                        <h1>
+                            Financeiro
+                        </h1>
+
+                        <p>
+                            Acompanhe o desempenho financeiro do seu negócio.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <!-- SUMMARY -->
+                <div class="finance-summary">
+
+                    <div class="finance-card revenue-card">
+
+                        <div class="finance-card-top">
+
+                            <span class="finance-label">
+                                Receita total
+                            </span>
+
+                            <span class="finance-icon">
+                                R$
+                            </span>
+
+                        </div>
+
+                        <strong
+                            class="finance-value"
+                            id="totalRevenue"
+                        >
+                            R$ 0,00
+                        </strong>
+
+                        <span class="finance-description">
+                            Pedidos concluídos
+                        </span>
+
+                    </div>
+
+
+                    <div class="finance-card">
+
+                        <div class="finance-card-top">
+
+                            <span class="finance-label">
+                                Pedidos concluídos
+                            </span>
+
+                            <span class="finance-icon">
+                                ✓
+                            </span>
+
+                        </div>
+
+                        <strong
+                            class="finance-value"
+                            id="completedOrders"
+                        >
+                            0
+                        </strong>
+
+                        <span class="finance-description">
+                            Vendas realizadas
+                        </span>
+
+                    </div>
+
+
+                    <div class="finance-card">
+
+                        <div class="finance-card-top">
+
+                            <span class="finance-label">
+                                Ticket médio
+                            </span>
+
+                            <span class="finance-icon">
+                                ◉
+                            </span>
+
+                        </div>
+
+                        <strong
+                            class="finance-value"
+                            id="averageTicket"
+                        >
+                            R$ 0,00
+                        </strong>
+
+                        <span class="finance-description">
+                            Média por pedido
+                        </span>
+
+                    </div>
+
+
+                    <div class="finance-card">
+
+                        <div class="finance-card-top">
+
+                            <span class="finance-label">
+                                Cancelados
+                            </span>
+
+                            <span class="finance-icon">
+                                ×
+                            </span>
+
+                        </div>
+
+                        <strong
+                            class="finance-value"
+                            id="cancelledOrders"
+                        >
+                            0
+                        </strong>
+
+                        <span class="finance-description">
+                            Pedidos cancelados
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TOOLBAR -->
+                <div class="finance-toolbar">
+
+                    <div class="finance-toolbar-left">
+
+                        <div class="finance-search">
+
+                            <span>⌕</span>
+
+                            <input
+                                type="search"
+                                id="searchFinance"
+                                placeholder="Buscar pedido ou cliente..."
+                                autocomplete="off"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="finance-toolbar-right">
+
+                        <select
+                            id="financePeriod"
+                            class="finance-select"
+                        >
+                            <option value="all">
+                                Todo o período
+                            </option>
+
+                            <option value="today">
+                                Hoje
+                            </option>
+
+                            <option value="7">
+                                Últimos 7 dias
+                            </option>
+
+                            <option value="30">
+                                Últimos 30 dias
+                            </option>
+
+                            <option value="90">
+                                Últimos 90 dias
+                            </option>
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CONTENT GRID -->
+                <div class="finance-grid">
+
+                    <!-- TRANSACTIONS -->
+                    <section class="finance-panel transactions-panel">
+
+                        <div class="panel-header">
+
+                            <div>
+                                <span class="panel-kicker">
+                                    MOVIMENTAÇÕES
+                                </span>
+
+                                <h2>
+                                    Vendas recentes
+                                </h2>
+                            </div>
+
+                            <span
+                                class="transaction-count"
+                                id="transactionCount"
+                            >
+                                0 vendas
+                            </span>
+
+                        </div>
+
+
+                        <div class="transactions-table-wrapper">
+
+                            <table class="transactions-table">
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th>
+                                            Pedido
+                                        </th>
+
+                                        <th>
+                                            Cliente
+                                        </th>
+
+                                        <th>
+                                            Itens
+                                        </th>
+
+                                        <th>
+                                            Data
+                                        </th>
+
+                                        <th>
+                                            Status
+                                        </th>
+
+                                        <th>
+                                            Valor
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
+
+                                <tbody id="financeTableBody">
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+
+                        <div
+                            class="finance-empty"
+                            id="financeEmpty"
+                        >
+
+                            <div class="empty-icon">
+                                ◈
+                            </div>
+
+                            <h3>
+                                Nenhuma movimentação encontrada
+                            </h3>
+
+                            <p>
+                                Os pedidos concluídos aparecerão aqui.
+                            </p>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- SIDE SUMMARY -->
+                    <aside class="finance-side">
+
+                        <div class="finance-panel performance-panel">
+
+                            <div class="panel-header">
+
+                                <div>
+                                    <span class="panel-kicker">
+                                        RESUMO
+                                    </span>
+
+                                    <h2>
+                                        Desempenho
+                                    </h2>
+                                </div>
+
+                            </div>
+
+
+                            <div class="performance-list">
+
+                                <div class="performance-item">
+
+                                    <div class="performance-info">
+
+                                        <span>
+                                            Receita
+                                        </span>
+
+                                        <strong id="sideRevenue">
+                                            R$ 0,00
+                                        </strong>
+
+                                    </div>
+
+                                    <div class="progress-track">
+
+                                        <div
+                                            class="progress-bar"
+                                            id="revenueProgress"
+                                        ></div>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="performance-item">
+
+                                    <div class="performance-info">
+
+                                        <span>
+                                            Pedidos
+                                        </span>
+
+                                        <strong id="sideOrders">
+                                            0
+                                        </strong>
+
+                                    </div>
+
+                                    <div class="progress-track">
+
+                                        <div
+                                            class="progress-bar"
+                                            id="ordersProgress"
+                                        ></div>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="performance-item">
+
+                                    <div class="performance-info">
+
+                                        <span>
+                                            Cancelamentos
+                                        </span>
+
+                                        <strong id="sideCancelled">
+                                            0
+                                        </strong>
+
+                                    </div>
+
+                                    <div class="progress-track">
+
+                                        <div
+                                            class="progress-bar cancel-progress"
+                                            id="cancelProgress"
+                                        ></div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="finance-panel info-panel">
+
+                            <div class="info-icon">
+                                i
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Como a receita é calculada?
+                                </strong>
+
+                                <p>
+                                    O NEXUS considera como receita apenas
+                                    pedidos com status
+                                    <strong>Concluído</strong>.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </aside>
+
+                </div>
+
+            </section>
+
+
+            <footer class="footer">
+
+                <span>
+                    NEXUS — Smart Business System
+                </span>
+
+                <span>
+                    Sistema de gestão inteligente
+                </span>
+
+            </footer>
+
+        </main>
+
+    </div>
+
+
+    <script
+        type="module"
+        src="financeiro.js"
+    ></script>
+
+</body>
+
+  </html>
