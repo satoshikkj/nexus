@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NEXUS — Produtos</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="produtos.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+
+            <div class="sidebar-top">
+
+                <div class="logo">
+                    <span>NEXUS</span>
+                    <small>SMART BUSINESS</small>
+                </div>
+
+                <nav class="nav">
+
+                    <a href="dashboard.html" class="nav-item">
+                        <span>⌂</span>
+                        Dashboard
+                    </a>
+
+                    <a href="#" class="nav-item">
+                        <span>▣</span>
+                        Pedidos
+                    </a>
+
+                    <a href="produtos.html" class="nav-item active">
+                        <span>□</span>
+                        Produtos
+                    </a>
+
+                    <a href="#" class="nav-item">
+                        <span>♙</span>
+                        Clientes
+                    </a>
+
+                    <a href="#" class="nav-item">
+                        <span>◈</span>
+                        Financeiro
+                    </a>
+
+                    <a href="#" class="nav-item">
+                        <span>▥</span>
+                        Relatórios
+                    </a>
+
+                    <a href="#" class="nav-item">
+                        <span>⚙</span>
+                        Configurações
+                    </a>
+
+                </nav>
+
+            </div>
+
+            <div class="sidebar-bottom">
+
+                <div class="system-status">
+                    <span></span>
+                    Sistema online
+                </div>
+
+                <div class="sidebar-user">
+
+                    <div class="avatar" id="userAvatar">
+                        U
+                    </div>
+
+                    <div>
+                        <strong id="sidebarUserName">Usuário</strong>
+                        <small id="sidebarUserRole">Usuário</small>
+                    </div>
+
+                    <button id="logoutButton" title="Sair">
+                        ↪
+                    </button>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <!-- MAIN -->
+        <main class="main">
+
+            <!-- TOPBAR -->
+            <header class="topbar">
+
+                <div>
+
+                    <button class="mobile-menu" id="mobileMenu">
+                        ☰
+                    </button>
+
+                    <span class="company-name" id="companyName">
+                        NEXUS
+                    </span>
+
+                </div>
+
+                <div class="topbar-user">
+
+                    <span id="topbarAvatar">
+                        U
+                    </span>
+
+                </div>
+
+            </header>
+
+
+            <!-- CONTENT -->
+            <section class="products-page">
+
+                <div class="page-header">
+
+                    <div>
+                        <span class="eyebrow">CATÁLOGO</span>
+
+                        <h1>Produtos</h1>
+
+                        <p>
+                            Gerencie os produtos e o estoque da sua empresa.
+                        </p>
+                    </div>
+
+                    <button class="primary-button" id="newProductButton">
+                        <span>＋</span>
+                        Novo produto
+                    </button>
+
+                </div>
+
+
+                <!-- SEARCH -->
+                <div class="products-toolbar">
+
+                    <div class="search-box">
+
+                        <span>⌕</span>
+
+                        <input
+                            type="text"
+                            id="searchInput"
+                            placeholder="Pesquisar produto..."
+                            autocomplete="off"
+                        >
+
+                    </div>
+
+                    <select id="categoryFilter">
+                        <option value="">Todas as categorias</option>
+                    </select>
+
+                </div>
+
+
+                <!-- PRODUCTS -->
+                <div class="products-card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <h2>Catálogo</h2>
+                            <span id="productCount">
+                                0 produtos
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+                                    <th>Produto</th>
+                                    <th>Categoria</th>
+                                    <th>Preço</th>
+                                    <th>Estoque</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="productsTableBody">
+
+                                <tr class="empty-row">
+                                    <td colspan="6">
+
+                                        <div class="empty-state">
+
+                                            <div class="empty-icon">
+                                                □
+                                            </div>
+
+                                            <h3>Nenhum produto cadastrado</h3>
+
+                                            <p>
+                                                Comece adicionando o primeiro produto da sua empresa.
+                                            </p>
+
+                                            <button
+                                                class="secondary-button"
+                                                id="emptyNewProductButton"
+                                            >
+                                                Adicionar produto
+                                            </button>
+
+                                        </div>
+
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="productModal">
+
+        <div class="product-modal">
+
+            <div class="modal-header">
+
+                <div>
+                    <span class="eyebrow">CATÁLOGO</span>
+                    <h2 id="modalTitle">Novo produto</h2>
+                </div>
+
+                <button id="closeModal">
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="productForm">
+
+                <input type="hidden" id="productId">
+
+
+                <div class="form-grid">
+
+                    <div class="form-group full">
+
+                        <label for="productName">
+                            Nome do produto
+                        </label>
+
+                        <input
+                            type="text"
+                            id="productName"
+                            placeholder="Ex.: Brownie de chocolate"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="productPrice">
+                            Preço
+                        </label>
+
+                        <input
+                            type="number"
+                            id="productPrice"
+                            placeholder="0,00"
+                            min="0"
+                            step="0.01"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="productStock">
+                            Estoque
+                        </label>
+
+                        <input
+                            type="number"
+                            id="productStock"
+                            placeholder="0"
+                            min="0"
+                            step="1"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group full">
+
+                        <label for="productCategory">
+                            Categoria
+                        </label>
+
+                        <input
+                            type="text"
+                            id="productCategory"
+                            placeholder="Ex.: Doces, Bebidas, Eletrônicos..."
+                        >
+
+                    </div>
+
+
+                    <div class="form-group full">
+
+                        <label for="productDescription">
+                            Descrição
+                        </label>
+
+                        <textarea
+                            id="productDescription"
+                            rows="4"
+                            placeholder="Descrição do produto..."
+                        ></textarea>
+
+                    </div>
+
+
+                    <div class="form-group full">
+
+                        <label for="productStatus">
+                            Status
+                        </label>
+
+                        <select id="productStatus">
+
+                            <option value="ativo">
+                                Ativo
+                            </option>
+
+                            <option value="inativo">
+                                Inativo
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-message" id="formMessage"></div>
+
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="secondary-button"
+                        id="cancelButton"
+                    >
+                        Cancelar
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                        id="saveProductButton"
+                    >
+                        Salvar produto
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <script type="module" src="produtos.js"></script>
+
+</body>
+</html>
