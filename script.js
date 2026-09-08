@@ -2,13 +2,26 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     sendPasswordResetEmail,
-    onAuthStateChanged,
-    signOut
+    onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
-import { auth } from "./firebase.js";
+import {
+    doc,
+    setDoc,
+    collection,
+    addDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
-document.addEventListener("DOMContentLoaded", () => {
+import { auth, db } from "./firebase.js";
+
+    // ==============================
+    // ELEMENTOS
+    // ==============================
+
+    const loginScreen = document.getElementById("loginScreen");
+    const registerScreen = document.getElementById("registerScreen");
+
 
     // ==============================
     // ELEMENTOS
