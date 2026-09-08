@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="NEXUS — Gestão inteligente de clientes."
+    >
+
+    <meta
+        name="theme-color"
+        content="#08090d"
+    >
+
+    <title>NEXUS — Clientes</title>
+
+
+    <!-- Fonte -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- CSS -->
+
+    <link
+        rel="stylesheet"
+        href="dashboard.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="clientes.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+    <!-- =====================================
+         SIDEBAR
+    ====================================== -->
+
+    <aside
+        class="sidebar"
+        id="sidebar"
+    >
+
+        <div class="sidebar-logo">
+
+            <div class="logo-mark">
+                N
+            </div>
+
+            <div class="logo-info">
+
+                <span class="logo-name">
+                    NEXUS
+                </span>
+
+                <span class="logo-subtitle">
+                    SMART BUSINESS
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- Navegação -->
+
+        <nav class="sidebar-nav">
+
+            <div class="nav-section">
+
+                <span class="nav-title">
+                    PRINCIPAL
+                </span>
+
+                <a
+                    href="dashboard.html"
+                    class="nav-item"
+                >
+                    <span class="nav-icon">⌂</span>
+                    <span>Dashboard</span>
+                </a>
+
+            </div>
+
+
+            <div class="nav-section">
+
+                <span class="nav-title">
+                    GESTÃO
+                </span>
+
+                <a
+                    href="#"
+                    class="nav-item"
+                >
+                    <span class="nav-icon">▣</span>
+                    <span>Pedidos</span>
+                </a>
+
+
+                <a
+                    href="produtos.html"
+                    class="nav-item"
+                >
+                    <span class="nav-icon">◇</span>
+                    <span>Produtos</span>
+                </a>
+
+
+                <a
+                    href="clientes.html"
+                    class="nav-item active"
+                >
+                    <span class="nav-icon">♙</span>
+                    <span>Clientes</span>
+                </a>
+
+            </div>
+
+
+            <div class="nav-section">
+
+                <span class="nav-title">
+                    ANÁLISE
+                </span>
+
+                <a
+                    href="#"
+                    class="nav-item"
+                >
+                    <span class="nav-icon">◇</span>
+                    <span>Financeiro</span>
+                </a>
+
+
+                <a
+                    href="#"
+                    class="nav-item"
+                >
+                    <span class="nav-icon">▥</span>
+                    <span>Relatórios</span>
+                </a>
+
+            </div>
+
+
+            <div class="nav-section">
+
+                <span class="nav-title">
+                    SISTEMA
+                </span>
+
+                <a
+                    href="#"
+                    class="nav-item"
+                >
+                    <span class="nav-icon">⚙</span>
+                    <span>Configurações</span>
+                </a>
+
+            </div>
+
+        </nav>
+
+
+        <!-- Status -->
+
+        <div class="system-status">
+
+            <span class="status-dot"></span>
+
+            <div>
+
+                <strong>
+                    SISTEMA ONLINE
+                </strong>
+
+                <small>
+                    NEXUS CORE
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- Usuário -->
+
+        <div class="sidebar-user">
+
+            <div
+                class="user-avatar"
+                id="userAvatar"
+            >
+                U
+            </div>
+
+
+            <div class="user-info">
+
+                <strong id="sidebarUserName">
+                    Carregando...
+                </strong>
+
+                <span id="sidebarUserRole">
+                    Usuário
+                </span>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="logout-button"
+                id="logoutButton"
+                title="Sair"
+            >
+                ↪
+            </button>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =====================================
+         CONTEÚDO
+    ====================================== -->
+
+    <main class="main-content">
+
+
+        <!-- HEADER -->
+
+        <header class="topbar">
+
+            <div class="topbar-left">
+
+                <button
+                    type="button"
+                    class="mobile-menu"
+                    id="mobileMenu"
+                    aria-label="Abrir menu"
+                >
+                    ☰
+                </button>
+
+
+                <div>
+
+                    <span class="page-label">
+                        NEXUS / GESTÃO
+                    </span>
+
+                    <h1>
+                        Clientes
+                    </h1>
+
+                </div>
+
+            </div>
+
+
+            <div class="topbar-right">
+
+                <div class="company-info">
+
+                    <span class="company-label">
+                        EMPRESA
+                    </span>
+
+                    <strong id="companyName">
+                        Carregando...
+                    </strong>
+
+                </div>
+
+
+                <div class="topbar-divider"></div>
+
+
+                <div class="topbar-user">
+
+                    <div
+                        class="user-avatar small"
+                        id="topbarAvatar"
+                    >
+                        U
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =====================================
+             CLIENTES
+        ====================================== -->
+
+        <section class="clients-page">
+
+
+            <!-- Cabeçalho -->
+
+            <div class="page-header">
+
+                <div>
+
+                    <span class="card-label">
+                        CRM
+                    </span>
+
+                    <h2>
+                        Clientes
+                    </h2>
+
+                    <p>
+                        Gerencie os clientes da sua empresa.
+                    </p>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="primary-button"
+                    id="newClientButton"
+                >
+                    + Novo cliente
+                </button>
+
+            </div>
+
+
+
+            <!-- Barra de ferramentas -->
+
+            <div class="clients-toolbar">
+
+                <div class="search-box">
+
+                    <span>
+                        ⌕
+                    </span>
+
+                    <input
+                        type="search"
+                        id="searchClient"
+                        placeholder="Buscar cliente..."
+                    >
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Tabela -->
+
+            <section class="dashboard-card clients-card">
+
+                <div class="table-wrapper">
+
+                    <table class="clients-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    CLIENTE
+                                </th>
+
+                                <th>
+                                    WHATSAPP
+                                </th>
+
+                                <th>
+                                    E-MAIL
+                                </th>
+
+                                <th>
+                                    CADASTRO
+                                </th>
+
+                                <th>
+                                    AÇÕES
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="clientsTableBody">
+
+                            <tr>
+
+                                <td colspan="5">
+
+                                    <div class="table-empty">
+
+                                        <span class="empty-icon">
+                                            ♙
+                                        </span>
+
+                                        <strong>
+                                            Nenhum cliente cadastrado
+                                        </strong>
+
+                                        <span>
+                                            Cadastre seu primeiro cliente.
+                                        </span>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+        </section>
+
+
+
+        <!-- FOOTER -->
+
+        <footer class="dashboard-footer">
+
+            <span>
+                NEXUS — Smart Business System
+            </span>
+
+            <span>
+
+                <span class="footer-status"></span>
+
+                Sistema operacional
+
+            </span>
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+
+<!-- =========================================
+     MODAL — NOVO CLIENTE
+========================================== -->
+
+<div
+    class="modal-overlay"
+    id="clientModal"
+>
+
+    <div class="modal-card">
+
+
+        <div class="modal-header">
+
+            <div>
+
+                <span class="card-label">
+                    CRM
+                </span>
+
+                <h2 id="modalTitle">
+                    Novo cliente
+                </h2>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="modal-close"
+                id="closeClientModal"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+
+        <form id="clientForm">
+
+
+            <input
+                type="hidden"
+                id="clientId"
+            >
+
+
+            <div class="form-group">
+
+                <label for="clientName">
+                    Nome
+                </label>
+
+                <input
+                    type="text"
+                    id="clientName"
+                    placeholder="Nome completo"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="clientWhatsapp">
+                        WhatsApp
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="clientWhatsapp"
+                        placeholder="(91) 99999-9999"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="clientEmail">
+                        E-mail
+                    </label>
+
+                    <input
+                        type="email"
+                        id="clientEmail"
+                        placeholder="cliente@email.com"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="clientCpf">
+                    CPF
+                    <span>
+                        opcional
+                    </span>
+                </label>
+
+                <input
+                    type="text"
+                    id="clientCpf"
+                    placeholder="000.000.000-00"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="clientNotes">
+                    Observações
+                </label>
+
+                <textarea
+                    id="clientNotes"
+                    rows="4"
+                    placeholder="Informações adicionais..."
+                ></textarea>
+
+            </div>
+
+
+            <div
+                class="form-message"
+                id="clientMessage"
+            ></div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="secondary-button"
+                    id="cancelClientButton"
+                >
+                    Cancelar
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="primary-button"
+                    id="saveClientButton"
+                >
+                    Salvar cliente
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<script
+    type="module"
+    src="clientes.js"
+></script>
+
+</body>
+
+  </html>
