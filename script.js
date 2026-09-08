@@ -15,13 +15,6 @@ import {
 
 import { auth, db } from "./firebase.js";
 
-    // ==============================
-    // ELEMENTOS
-    // ==============================
-
-    const loginScreen = document.getElementById("loginScreen");
-    const registerScreen = document.getElementById("registerScreen");
-
 
     // ==============================
     // ELEMENTOS
