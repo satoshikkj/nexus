@@ -1,1 +1,827 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
 
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="NEXUS — Dashboard inteligente de gestão empresarial."
+    >
+
+    <meta
+        name="theme-color"
+        content="#08090d"
+    >
+
+    <title>NEXUS — Dashboard</title>
+
+    <!-- Fonte -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- CSS do Dashboard -->
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+
+    <!-- =========================================
+         APP
+    ========================================== -->
+
+    <div class="app">
+
+        <!-- =====================================
+             SIDEBAR
+        ====================================== -->
+
+        <aside class="sidebar" id="sidebar">
+
+            <!-- Logo -->
+
+            <div class="sidebar-logo">
+
+                <div class="logo-mark">
+                    N
+                </div>
+
+                <div class="logo-info">
+                    <span class="logo-name">
+                        NEXUS
+                    </span>
+
+                    <span class="logo-subtitle">
+                        SMART BUSINESS
+                    </span>
+                </div>
+
+            </div>
+
+
+            <!-- Navegação -->
+
+            <nav class="sidebar-nav">
+
+                <div class="nav-section">
+
+                    <span class="nav-title">
+                        PRINCIPAL
+                    </span>
+
+                    <a
+                        href="#"
+                        class="nav-item active"
+                        data-page="dashboard"
+                    >
+                        <span class="nav-icon">⌂</span>
+                        <span>Dashboard</span>
+                    </a>
+
+                </div>
+
+
+                <div class="nav-section">
+
+                    <span class="nav-title">
+                        GESTÃO
+                    </span>
+
+                    <a
+                        href="#"
+                        class="nav-item"
+                        data-page="orders"
+                    >
+                        <span class="nav-icon">▣</span>
+                        <span>Pedidos</span>
+                    </a>
+
+                    <a
+                        href="#"
+                        class="nav-item"
+                        data-page="products"
+                    >
+                        <span class="nav-icon">◇</span>
+                        <span>Produtos</span>
+                    </a>
+
+                    <a
+                        href="#"
+                        class="nav-item"
+                        data-page="clients"
+                    >
+                        <span class="nav-icon">♙</span>
+                        <span>Clientes</span>
+                    </a>
+
+                </div>
+
+
+                <div class="nav-section">
+
+                    <span class="nav-title">
+                        ANÁLISE
+                    </span>
+
+                    <a
+                        href="#"
+                        class="nav-item"
+                        data-page="finance"
+                    >
+                        <span class="nav-icon">◇</span>
+                        <span>Financeiro</span>
+                    </a>
+
+                    <a
+                        href="#"
+                        class="nav-item"
+                        data-page="reports"
+                    >
+                        <span class="nav-icon">▥</span>
+                        <span>Relatórios</span>
+                    </a>
+
+                </div>
+
+
+                <div class="nav-section">
+
+                    <span class="nav-title">
+                        SISTEMA
+                    </span>
+
+                    <a
+                        href="#"
+                        class="nav-item"
+                        data-page="settings"
+                    >
+                        <span class="nav-icon">⚙</span>
+                        <span>Configurações</span>
+                    </a>
+
+                </div>
+
+            </nav>
+
+
+            <!-- Status -->
+
+            <div class="system-status">
+
+                <span class="status-dot"></span>
+
+                <div>
+                    <strong>SISTEMA ONLINE</strong>
+                    <small>NEXUS CORE</small>
+                </div>
+
+            </div>
+
+
+            <!-- Usuário -->
+
+            <div class="sidebar-user">
+
+                <div class="user-avatar" id="userAvatar">
+                    U
+                </div>
+
+                <div class="user-info">
+
+                    <strong id="sidebarUserName">
+                        Carregando...
+                    </strong>
+
+                    <span id="sidebarUserRole">
+                        Usuário
+                    </span>
+
+                </div>
+
+                <button
+                    type="button"
+                    class="logout-button"
+                    id="logoutButton"
+                    title="Sair"
+                >
+                    ↪
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- =====================================
+             CONTEÚDO PRINCIPAL
+        ====================================== -->
+
+        <main class="main-content">
+
+            <!-- =================================
+                 HEADER
+            ================================== -->
+
+            <header class="topbar">
+
+                <div class="topbar-left">
+
+                    <button
+                        type="button"
+                        class="mobile-menu"
+                        id="mobileMenu"
+                        aria-label="Abrir menu"
+                    >
+                        ☰
+                    </button>
+
+                    <div>
+
+                        <span class="page-label">
+                            NEXUS / OVERVIEW
+                        </span>
+
+                        <h1>
+                            Dashboard
+                        </h1>
+
+                    </div>
+
+                </div>
+
+
+                <div class="topbar-right">
+
+                    <div class="company-info">
+
+                        <span class="company-label">
+                            EMPRESA
+                        </span>
+
+                        <strong id="companyName">
+                            Carregando...
+                        </strong>
+
+                    </div>
+
+                    <div class="topbar-divider"></div>
+
+                    <div class="topbar-user">
+
+                        <div
+                            class="user-avatar small"
+                            id="topbarAvatar"
+                        >
+                            U
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- =================================
+                 DASHBOARD
+            ================================== -->
+
+            <section class="dashboard">
+
+                <!-- Boas-vindas -->
+
+                <div class="welcome-section">
+
+                    <div>
+
+                        <span class="welcome-label">
+                            VISÃO GERAL
+                        </span>
+
+                        <h2>
+                            Olá, <span id="welcomeName">Usuário</span>.
+                        </h2>
+
+                        <p>
+                            Aqui está o resumo da sua operação.
+                        </p>
+
+                    </div>
+
+                    <div class="current-date" id="currentDate">
+                        --/--/----
+                    </div>
+
+                </div>
+
+
+                <!-- =================================
+                     MÉTRICAS
+                ================================== -->
+
+                <div class="metrics-grid">
+
+                    <!-- Receita -->
+
+                    <article class="metric-card">
+
+                        <div class="metric-header">
+
+                            <span class="metric-title">
+                                RECEITA
+                            </span>
+
+                            <span class="metric-icon">
+                                R$
+                            </span>
+
+                        </div>
+
+                        <div class="metric-value">
+                            R$ 0,00
+                        </div>
+
+                        <div class="metric-footer">
+
+                            <span class="metric-neutral">
+                                — 0%
+                            </span>
+
+                            <span>
+                                este mês
+                            </span>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- Pedidos -->
+
+                    <article class="metric-card">
+
+                        <div class="metric-header">
+
+                            <span class="metric-title">
+                                PEDIDOS
+                            </span>
+
+                            <span class="metric-icon">
+                                #
+                            </span>
+
+                        </div>
+
+                        <div class="metric-value">
+                            0
+                        </div>
+
+                        <div class="metric-footer">
+
+                            <span class="metric-neutral">
+                                — 0%
+                            </span>
+
+                            <span>
+                                este mês
+                            </span>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- Clientes -->
+
+                    <article class="metric-card">
+
+                        <div class="metric-header">
+
+                            <span class="metric-title">
+                                CLIENTES
+                            </span>
+
+                            <span class="metric-icon">
+                                ◉
+                            </span>
+
+                        </div>
+
+                        <div class="metric-value">
+                            0
+                        </div>
+
+                        <div class="metric-footer">
+
+                            <span class="metric-neutral">
+                                — 0%
+                            </span>
+
+                            <span>
+                                total
+                            </span>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- Produtos -->
+
+                    <article class="metric-card">
+
+                        <div class="metric-header">
+
+                            <span class="metric-title">
+                                PRODUTOS
+                            </span>
+
+                            <span class="metric-icon">
+                                ◇
+                            </span>
+
+                        </div>
+
+                        <div class="metric-value">
+                            0
+                        </div>
+
+                        <div class="metric-footer">
+
+                            <span class="metric-neutral">
+                                — 0%
+                            </span>
+
+                            <span>
+                                cadastrados
+                            </span>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+
+                <!-- =================================
+                     GRID PRINCIPAL
+                ================================== -->
+
+                <div class="dashboard-grid">
+
+
+                    <!-- =================================
+                         RESUMO FINANCEIRO
+                    ================================== -->
+
+                    <section class="dashboard-card finance-card">
+
+                        <div class="card-header">
+
+                            <div>
+
+                                <span class="card-label">
+                                    PERFORMANCE
+                                </span>
+
+                                <h3>
+                                    Resumo financeiro
+                                </h3>
+
+                            </div>
+
+                            <button
+                                type="button"
+                                class="card-action"
+                            >
+                                Este mês ▾
+                            </button>
+
+                        </div>
+
+
+                        <!-- Gráfico -->
+
+                        <div class="chart-area">
+
+                            <div class="chart-placeholder">
+
+                                <div class="chart-line"></div>
+
+                                <div class="chart-message">
+                                    Dados financeiros aparecerão aqui
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Legenda -->
+
+                        <div class="chart-legend">
+
+                            <div class="legend-item">
+
+                                <span class="legend-dot revenue"></span>
+
+                                <span>
+                                    Receita
+                                </span>
+
+                            </div>
+
+                            <div class="legend-item">
+
+                                <span class="legend-dot expenses"></span>
+
+                                <span>
+                                    Despesas
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- =================================
+                         ATIVIDADE
+                    ================================== -->
+
+                    <section class="dashboard-card activity-card">
+
+                        <div class="card-header">
+
+                            <div>
+
+                                <span class="card-label">
+                                    SISTEMA
+                                </span>
+
+                                <h3>
+                                    Atividade recente
+                                </h3>
+
+                            </div>
+
+                            <span class="live-indicator">
+                                ● LIVE
+                            </span>
+
+                        </div>
+
+
+                        <div
+                            class="activity-list"
+                            id="activityList"
+                        >
+
+                            <div class="empty-state">
+
+                                <div class="empty-icon">
+                                    ◌
+                                </div>
+
+                                <strong>
+                                    Nenhuma atividade
+                                </strong>
+
+                                <span>
+                                    As atividades aparecerão aqui.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+                </div>
+
+
+                <!-- =================================
+                     PEDIDOS RECENTES
+                ================================== -->
+
+                <section class="dashboard-card orders-card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <span class="card-label">
+                                OPERAÇÃO
+                            </span>
+
+                            <h3>
+                                Pedidos recentes
+                            </h3>
+
+                        </div>
+
+                        <button
+                            type="button"
+                            class="card-action"
+                        >
+                            Ver todos →
+                        </button>
+
+                    </div>
+
+
+                    <div class="table-wrapper">
+
+                        <table class="orders-table">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        PEDIDO
+                                    </th>
+
+                                    <th>
+                                        CLIENTE
+                                    </th>
+
+                                    <th>
+                                        DATA
+                                    </th>
+
+                                    <th>
+                                        VALOR
+                                    </th>
+
+                                    <th>
+                                        STATUS
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="ordersTableBody">
+
+                                <tr class="empty-table-row">
+
+                                    <td colspan="5">
+
+                                        <div class="table-empty">
+
+                                            <span class="empty-icon">
+                                                ▱
+                                            </span>
+
+                                            <strong>
+                                                Nenhum pedido registrado
+                                            </strong>
+
+                                            <span>
+                                                Quando houver pedidos,
+                                                eles aparecerão aqui.
+                                            </span>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================
+                     ACESSOS RÁPIDOS
+                ================================== -->
+
+                <section class="quick-actions">
+
+                    <span class="card-label">
+                        AÇÕES RÁPIDAS
+                    </span>
+
+                    <div class="quick-grid">
+
+                        <button
+                            type="button"
+                            class="quick-action"
+                            data-action="new-order"
+                        >
+                            <span class="quick-icon">
+                                +
+                            </span>
+
+                            <span>
+                                Novo pedido
+                            </span>
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="quick-action"
+                            data-action="new-product"
+                        >
+                            <span class="quick-icon">
+                                ◇
+                            </span>
+
+                            <span>
+                                Novo produto
+                            </span>
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="quick-action"
+                            data-action="new-client"
+                        >
+                            <span class="quick-icon">
+                                +
+                            </span>
+
+                            <span>
+                                Novo cliente
+                            </span>
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="quick-action"
+                            data-action="finance"
+                        >
+                            <span class="quick-icon">
+                                R$
+                            </span>
+
+                            <span>
+                                Financeiro
+                            </span>
+                        </button>
+
+                    </div>
+
+                </section>
+
+            </section>
+
+
+            <!-- =================================
+                 FOOTER
+            ================================== -->
+
+            <footer class="dashboard-footer">
+
+                <span>
+                    NEXUS — Smart Business System
+                </span>
+
+                <span>
+                    <span class="footer-status"></span>
+                    Sistema operacional
+                </span>
+
+            </footer>
+
+        </main>
+
+    </div>
+
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================== -->
+
+    <script type="module" src="dashboard.js"></script>
+
+</body>
+                              </html>
