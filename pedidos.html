@@ -1,1 +1,814 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
 
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#08090d"
+    >
+
+    <title>NEXUS — Pedidos</title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="dashboard.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="pedidos.css"
+    >
+</head>
+
+
+<body>
+
+    <div class="app">
+
+
+        <!-- =====================================
+             SIDEBAR
+        ====================================== -->
+
+        <aside
+            class="sidebar"
+            id="sidebar"
+        >
+
+            <div class="sidebar-header">
+
+                <div class="logo">
+                    NEXUS
+                </div>
+
+                <div
+                    class="company-name"
+                    id="companyName"
+                >
+                    Minha Empresa
+                </div>
+
+            </div>
+
+
+            <nav class="sidebar-nav">
+
+                <a
+                    href="dashboard.html"
+                    class="nav-item"
+                >
+                    <span class="nav-icon">⌂</span>
+                    <span>Dashboard</span>
+                </a>
+
+
+                <a
+                    href="produtos.html"
+                    class="nav-item"
+                >
+                    <span class="nav-icon">◇</span>
+                    <span>Produtos</span>
+                </a>
+
+
+                <a
+                    href="clientes.html"
+                    class="nav-item"
+                >
+                    <span class="nav-icon">♙</span>
+                    <span>Clientes</span>
+                </a>
+
+
+                <a
+                    href="pedidos.html"
+                    class="nav-item active"
+                >
+                    <span class="nav-icon">▣</span>
+                    <span>Pedidos</span>
+                </a>
+
+
+                <a
+                    href="#"
+                    class="nav-item"
+                >
+                    <span class="nav-icon">◈</span>
+                    <span>Financeiro</span>
+                </a>
+
+
+                <a
+                    href="#"
+                    class="nav-item"
+                >
+                    <span class="nav-icon">◫</span>
+                    <span>Relatórios</span>
+                </a>
+
+
+                <a
+                    href="#"
+                    class="nav-item"
+                >
+                    <span class="nav-icon">⚙</span>
+                    <span>Configurações</span>
+                </a>
+
+            </nav>
+
+
+            <!-- USUÁRIO -->
+
+            <div class="sidebar-footer">
+
+                <div class="sidebar-user">
+
+                    <div
+                        class="user-avatar"
+                        id="userAvatar"
+                    >
+                        U
+                    </div>
+
+                    <div class="user-info">
+
+                        <strong id="sidebarUserName">
+                            Usuário
+                        </strong>
+
+                        <span id="sidebarUserRole">
+                            Usuário
+                        </span>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="logout-button"
+                        id="logoutButton"
+                        title="Sair"
+                    >
+                        ↪
+                    </button>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+
+
+        <!-- =====================================
+             MAIN
+        ====================================== -->
+
+        <main class="main-content">
+
+
+            <!-- TOPBAR -->
+
+            <header class="topbar">
+
+                <button
+                    type="button"
+                    class="mobile-menu"
+                    id="mobileMenu"
+                >
+                    ☰
+                </button>
+
+
+                <div class="topbar-title">
+
+                    <span class="topbar-label">
+                        Gestão
+                    </span>
+
+                    <h1>
+                        Pedidos
+                    </h1>
+
+                </div>
+
+
+                <div class="topbar-right">
+
+                    <div class="topbar-status">
+                        <span></span>
+                        Sistema online
+                    </div>
+
+                    <div
+                        class="topbar-avatar"
+                        id="topbarAvatar"
+                    >
+                        U
+                    </div>
+
+                </div>
+
+            </header>
+
+
+
+            <!-- =====================================
+                 PAGE HEADER
+            ====================================== -->
+
+            <section class="orders-page">
+
+
+                <div class="page-header">
+
+                    <div>
+
+                        <span class="page-kicker">
+                            OPERAÇÕES
+                        </span>
+
+                        <h2>
+                            Pedidos
+                        </h2>
+
+                        <p>
+                            Gerencie suas vendas e acompanhe
+                            o andamento dos pedidos.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="primary-button"
+                        id="newOrderButton"
+                    >
+                        <span>＋</span>
+                        Novo pedido
+                    </button>
+
+                </div>
+
+
+
+                <!-- =====================================
+                     RESUMO
+                ====================================== -->
+
+                <div class="orders-summary">
+
+
+                    <div class="summary-card">
+
+                        <div class="summary-icon">
+                            ▣
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Total de pedidos
+                            </span>
+
+                            <strong id="totalOrders">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="summary-card">
+
+                        <div class="summary-icon">
+                            ◷
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Pendentes
+                            </span>
+
+                            <strong id="pendingOrders">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="summary-card">
+
+                        <div class="summary-icon">
+                            ✓
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Concluídos
+                            </span>
+
+                            <strong id="completedOrders">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="summary-card">
+
+                        <div class="summary-icon">
+                            $
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Valor total
+                            </span>
+
+                            <strong id="ordersTotalValue">
+                                R$ 0,00
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =====================================
+                     TOOLBAR
+                ====================================== -->
+
+                <div class="orders-toolbar">
+
+
+                    <div class="search-box">
+
+                        <span>
+                            ⌕
+                        </span>
+
+                        <input
+                            type="search"
+                            id="searchOrder"
+                            placeholder="Pesquisar pedido ou cliente..."
+                            autocomplete="off"
+                        >
+
+                    </div>
+
+
+                    <select
+                        id="orderStatusFilter"
+                        class="filter-select"
+                    >
+
+                        <option value="all">
+                            Todos os status
+                        </option>
+
+                        <option value="pendente">
+                            Pendente
+                        </option>
+
+                        <option value="andamento">
+                            Em andamento
+                        </option>
+
+                        <option value="concluido">
+                            Concluído
+                        </option>
+
+                        <option value="cancelado">
+                            Cancelado
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- =====================================
+                     TABELA
+                ====================================== -->
+
+                <section class="orders-card">
+
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <span class="card-kicker">
+                                HISTÓRICO
+                            </span>
+
+                            <h3>
+                                Pedidos recentes
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="table-wrapper">
+
+                        <table class="orders-table">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Pedido
+                                    </th>
+
+                                    <th>
+                                        Cliente
+                                    </th>
+
+                                    <th>
+                                        Itens
+                                    </th>
+
+                                    <th>
+                                        Total
+                                    </th>
+
+                                    <th>
+                                        Status
+                                    </th>
+
+                                    <th>
+                                        Data
+                                    </th>
+
+                                    <th>
+                                        Ações
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody id="ordersTableBody">
+
+                                <tr>
+
+                                    <td
+                                        colspan="7"
+                                        class="table-empty"
+                                    >
+
+                                        <div class="empty-icon">
+                                            ▣
+                                        </div>
+
+                                        <h3>
+                                            Nenhum pedido encontrado
+                                        </h3>
+
+                                        <p>
+                                            Crie seu primeiro pedido
+                                            para começar.
+                                        </p>
+
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </section>
+
+
+            </section>
+
+
+        </main>
+
+    </div>
+
+
+
+    <!-- =========================================
+         MODAL — NOVO / EDITAR PEDIDO
+    ========================================== -->
+
+    <div
+        class="modal-overlay"
+        id="orderModal"
+    >
+
+        <div class="modal-card order-modal-card">
+
+
+            <div class="modal-header">
+
+                <div>
+
+                    <span class="modal-kicker">
+                        NEXUS
+                    </span>
+
+                    <h2 id="modalTitle">
+                        Novo pedido
+                    </h2>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="modal-close"
+                    id="closeOrderModal"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+
+            <form
+                id="orderForm"
+                autocomplete="off"
+            >
+
+                <input
+                    type="hidden"
+                    id="orderId"
+                >
+
+
+                <!-- CLIENTE -->
+
+                <div class="form-group">
+
+                    <label for="orderClient">
+                        Cliente
+                    </label>
+
+                    <select
+                        id="orderClient"
+                        required
+                    >
+
+                        <option value="">
+                            Selecione um cliente
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- PRODUTO -->
+
+                <div class="form-group">
+
+                    <label for="orderProduct">
+                        Produto
+                    </label>
+
+                    <select
+                        id="orderProduct"
+                    >
+
+                        <option value="">
+                            Selecione um produto
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- QUANTIDADE + ADICIONAR -->
+
+                <div class="form-row order-product-row">
+
+                    <div class="form-group">
+
+                        <label for="orderQuantity">
+                            Quantidade
+                        </label>
+
+                        <input
+                            type="number"
+                            id="orderQuantity"
+                            min="1"
+                            value="1"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group add-item-wrapper">
+
+                        <label>
+                            &nbsp;
+                        </label>
+
+                        <button
+                            type="button"
+                            class="secondary-button add-item-button"
+                            id="addOrderItemButton"
+                        >
+                            ＋ Adicionar item
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ITENS -->
+
+                <div class="order-items-section">
+
+                    <div class="items-title">
+
+                        <span>
+                            Itens do pedido
+                        </span>
+
+                        <strong id="orderItemsCount">
+                            0 itens
+                        </strong>
+
+                    </div>
+
+
+                    <div
+                        class="order-items-list"
+                        id="orderItemsList"
+                    >
+
+                        <div class="order-items-empty">
+                            Nenhum produto adicionado.
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- TOTAL -->
+
+                <div class="order-total">
+
+                    <span>
+                        Total do pedido
+                    </span>
+
+                    <strong id="orderTotal">
+                        R$ 0,00
+                    </strong>
+
+                </div>
+
+
+
+                <!-- STATUS -->
+
+                <div class="form-group">
+
+                    <label for="orderStatus">
+                        Status
+                    </label>
+
+                    <select id="orderStatus">
+
+                        <option value="pendente">
+                            Pendente
+                        </option>
+
+                        <option value="andamento">
+                            Em andamento
+                        </option>
+
+                        <option value="concluido">
+                            Concluído
+                        </option>
+
+                        <option value="cancelado">
+                            Cancelado
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- OBSERVAÇÕES -->
+
+                <div class="form-group">
+
+                    <label for="orderNotes">
+                        Observações
+                    </label>
+
+                    <textarea
+                        id="orderNotes"
+                        rows="3"
+                        placeholder="Observações sobre o pedido..."
+                    ></textarea>
+
+                </div>
+
+
+
+                <div
+                    class="form-message"
+                    id="orderMessage"
+                ></div>
+
+
+
+                <!-- AÇÕES -->
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="secondary-button"
+                        id="cancelOrderButton"
+                    >
+                        Cancelar
+                    </button>
+
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                        id="saveOrderButton"
+                    >
+                        Salvar pedido
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+
+    <script
+        type="module"
+        src="pedidos.js"
+    ></script>
+
+</body>
+
+                      </html>
