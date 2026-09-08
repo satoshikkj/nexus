@@ -111,6 +111,47 @@ function updateCurrentDate() {
     }
 }
 
+// =========================================
+// FUNÇÃO — CONTAR PRODUTOS
+// =========================================
+
+async function loadProductsCount(empresaId) {
+
+    try {
+
+        const productsRef =
+            collection(
+                db,
+                "empresas",
+                empresaId,
+                "produtos"
+            );
+
+        const productsSnapshot =
+            await getDocs(productsRef);
+
+        const productsCount =
+            document.getElementById("productsCount");
+
+        if (productsCount) {
+
+            productsCount.textContent =
+                productsSnapshot.size;
+        }
+
+        console.log(
+            "Produtos encontrados:",
+            productsSnapshot.size
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Erro ao carregar quantidade de produtos:",
+            error
+        );
+    }
+}
 
 // =========================================
 // FUNÇÃO — CARREGAR DADOS
