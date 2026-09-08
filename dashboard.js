@@ -247,6 +247,8 @@ async function loadDashboard(user) {
             return;
         }
 
+        await loadProductsCount(empresaId);
+
 
         // =====================================
         // BUSCAR EMPRESA
