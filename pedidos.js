@@ -660,6 +660,63 @@ function closeModal() {
     orderMessage.textContent = "";
 }
 
+// =========================================
+// BAIXAR ESTOQUE
+// =========================================
+
+async function decreaseStock(orderItems) {
+
+    await runTransaction(db, async (transaction) => {
+
+        for (const item of orderItems) {
+
+            const productRef = doc(
+                db,
+                "empresas",
+                currentEmpresaId,
+                "produtos",
+                item.produtoId
+            );
+
+            const productSnapshot =
+                await transaction.get(productRef);
+
+            if (!productSnapshot.exists()) {
+
+                throw new Error(
+                    `Produto "${item.nome}" não foi encontrado.`
+                );
+            }
+
+            const productData =
+                productSnapshot.data();
+
+            const currentStock =
+                Number(productData.estoque) || 0;
+
+            const quantity =
+                Number(item.quantidade) || 0;
+
+            if (currentStock < quantity) {
+
+                throw new Error(
+                    `Estoque insuficiente para "${item.nome}". Disponível: ${currentStock}.`
+                );
+            }
+
+            transaction.update(
+                productRef,
+                {
+                    estoque:
+                        currentStock - quantity,
+
+                    atualizadoEm:
+                        serverTimestamp()
+                }
+            );
+        }
+    });
+}
 
 // =========================================
 // SALVAR PEDIDO
