@@ -325,12 +325,8 @@ import { auth, db } from "./firebase.js";
                  */
 
                 setTimeout(() => {
-
-                    console.log(
-                        "Preparando abertura do Dashboard..."
-                    );
-
-                }, 800);
+    window.location.href = "dashboard.html";
+}, 500);
 
             } catch (error) {
 
