@@ -558,18 +558,57 @@ import { auth, db } from "./firebase.js";
                         password
                     );
 
-                const user =
-                    userCredential.user;
+const user =
+    userCredential.user;
 
-                console.log(
-                    "Conta criada:",
-                    user.uid
-                );
+console.log(
+    "Conta criada:",
+    user.uid
+);
 
-                showRegisterMessage(
-                    "Conta criada com sucesso!",
-                    "success"
-                );
+// ==========================
+// CRIAR EMPRESA NO FIRESTORE
+// ==========================
+
+const empresaRef = await addDoc(
+    collection(db, "empresas"),
+    {
+        nome: company,
+        proprietarioId: user.uid,
+        criadoEm: serverTimestamp()
+    }
+);
+
+const empresaId = empresaRef.id;
+
+console.log(
+    "Empresa criada:",
+    empresaId
+);
+
+// ==========================
+// CRIAR PERFIL DO USUÁRIO
+// ==========================
+
+await setDoc(
+    doc(db, "users", user.uid),
+    {
+        nome: name,
+        email: user.email,
+        empresaId: empresaId,
+        role: "owner",
+        criadoEm: serverTimestamp()
+    }
+);
+
+console.log(
+    "Perfil do usuário criado."
+);
+
+showRegisterMessage(
+    "Conta criada com sucesso!",
+    "success"
+);
 
                 /*
                  * A conta já existe no Firebase Authentication.
@@ -810,5 +849,3 @@ import { auth, db } from "./firebase.js";
         }
 
     });
-
-});
